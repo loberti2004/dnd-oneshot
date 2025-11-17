@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Runas Druún-Kaith</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", serif;
+      background: #f5f1e8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1024px;     /* Optimizado para iPad horizontal */
+      background: #faf7ef;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    td {
+      padding: 22px 10px;
+      text-align: center;
+      font-size: 42px;       /* runa grande y legible */
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      vertical-align: middle;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    @media (max-width: 700px) {
+      td { font-size: 34px; padding: 16px 6px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sheet">
+    <table id="runes-table">
+      <tbody>
+        <tr>
+          <td id="a">ᚨ</td>
+          <td id="o">ᚮ</td>
+          <td id="e">ᛖ</td>
+          <td id="u">ᚢ</td>
+        </tr>
+        <tr>
+          <td id="i">ᛁ</td>
+          <td id="r">ᚱ</td>
+          <td id="p">ᚦ</td>
+          <td id="k">ᚴ</td>
+        </tr>
+        <tr>
+          <td id="z">ᛊᚺ</td>
+          <td id="l">ᛚ</td>
+          <td id="m">ᛗ</td>
+          <td id="n">ᚾ</td>
+        </tr>
+        <tr>
+          <td id="d">ᛞ</td>
+          <td id="b">ᚡ</td>
+          <td id="f">ᚠ</td>
+          <td id="g">ᚷ</td>
+        </tr>
+        <tr>
+          <td id="w">ᚹ</td>
+          <td id="h">ᚺ</td>
+          <td id="y">ᛃ</td>
+          <td id="t">ᛏ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const word = "mirelle".split('');
+    let cont = 0;
+
+
+    const setGreen = rune => {
+      rune.style.color = 'green';
+    }
+
+    const setRed = rune => {
+      rune.style.color = 'red';
+      setTimeout(() => {
+        reset();
+      }, 1500);
+    }
+
+    const setBlack = rune => {
+      rune.style.color = 'black';
+    }
+
+    const reset = () => {
+      const runes = document.querySelectorAll('#runes-table td');
+      runes.forEach(td => {
+        setBlack(td);
+      });
+    }
+
+    const completed = () => {
+      const runes = document.querySelectorAll('#runes-table td');
+      runes.forEach(td => {
+        setGreen(td);
+        td.addEventListener('click', () => {});
+      });
+
+      let tm=1;
+      while(tm<6){
+        setTimeout(()=>{
+          runes.forEach(td => {
+            setBlack(td);
+          });
+        },tm*1000);
+        tm+=1;
+        setTimeout(()=>{
+          runes.forEach(td => {
+            setGreen(td);
+          });
+        },tm*1000);
+        tm+=1;
+      }
+
+      setTimeout(()=>{
+        runes.forEach(td => {
+          td.style.color = 'silver';
+        });
+      },tm*1000);
+
+      
+    }
+
+    const runeClick = rune => {
+      if(cont === word.length){
+        return;
+      }
+
+      if(rune.id === word[cont]){
+        setGreen(rune);
+        cont ++;
+      }
+      else {
+        setRed(rune);
+        cont = 0;
+      }
+
+      if(cont === word.length){
+        completed();
+      }
+    }
+
+    const runes = document.querySelectorAll('#runes-table td');
+    runes.forEach(td => {
+      td.addEventListener('click', () => {
+        runeClick(td);
+      });
+    });
+  </script>
+</body>
+</html>
