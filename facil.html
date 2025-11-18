@@ -10,7 +10,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", serif;
-      background: #f5f1e8;
+      background: #f5f1e8 url('tree.jpg') center/cover no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,7 +21,7 @@
     .sheet {
       width: 100%;
       max-width: 1024px;     /* Optimizado para iPad horizontal */
-      background: #faf7ef;
+      background: rgba(250, 250, 250, 0.9);
       border: 1px solid rgba(0,0,0,0.07);
       border-radius: 10px;
       padding: 20px;
@@ -38,6 +38,7 @@
       padding: 22px 10px;
       text-align: center;
       font-size: 42px;       /* runa grande y legible */
+      font-weight: bold;
       border-bottom: 1px solid rgba(0,0,0,0.05);
       vertical-align: middle;
       cursor: pointer;
@@ -89,23 +90,26 @@
   </div>
 
   <script>
+    const okColor = '#0074D9';
+    const errorColor = '#FF851B';
+    const baseColor = 'black';
     const word = "mirelle".split('');
     let cont = 0;
 
 
     const setGreen = rune => {
-      rune.style.color = 'green';
+      rune.style.color = okColor;
     }
 
     const setRed = rune => {
-      rune.style.color = 'red';
+      rune.style.color = errorColor;
       setTimeout(() => {
         reset();
-      }, 1500);
+      }, 1000);
     }
 
     const setBlack = rune => {
-      rune.style.color = 'black';
+      rune.style.color = baseColor;
     }
 
     const reset = () => {
